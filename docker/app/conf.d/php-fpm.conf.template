@@ -1,0 +1,11 @@
+[www]
+pm = dynamic
+pm.max_children = ${PM_MAX_CHILDREN:-5}
+pm.start_servers = ${PM_START_SERVERS:-2}
+pm.min_spare_servers = ${PM_MIN_SPARE_SERVERS:-1}
+pm.max_spare_servers = ${PM_MAX_SPARE_SERVERS:-3}
+pm.max_requests = ${PM_MAX_REQUESTS:-100}
+
+php_admin_flag[log_errors] = ${LOG_ERRORS:-on}
+php_admin_value[memory_limit] = ${MEMORY_LIMIT:-128M}
+php_admin_value[expose_php] = ${EXPOSE_PHP:-off}

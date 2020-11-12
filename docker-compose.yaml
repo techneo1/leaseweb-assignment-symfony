@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  app:
+    build:
+      context: .
+      target: build_development
+    env_file:
+      - .env
+    volumes:
+      - ./:/srv/app:rw,cached
+    ports:
+      - 9000:9000
+
+  nginx:
+    build:
+      context: .
+      target: symfony_docker_nginx
+    depends_on:
+      - app
+    volumes:
+      # Comment out the next line in production
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./public:/srv/app/public
+    ports:
+      - 80:80
