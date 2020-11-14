@@ -10,11 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ServerService
 {
-    const JSON_PATH = 'uploads/servers.json';
-
-    public function getServers(Request $request): array
+    public function getServers(string $filePath, Request $request): array
     {
-        $jsonStrFromFile = file_get_contents(self::JSON_PATH);
+        $jsonStrFromFile = file_get_contents($filePath);
 
         // Remove multiple UTF-8 BOM sequences
         $jsonArr = json_decode($this->removeUtf8Bom($jsonStrFromFile), true );

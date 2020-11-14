@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,9 +16,14 @@ use App\Service\ServerService;
  */
 class ServerController
 {
+    const JSON_PATH = 'public/uploads/servers.json';
+
     private $service;
-    public function __construct(ServerService $service)
+    private $filePath;
+
+    public function __construct(ParameterBagInterface $params, ServerService $service)
     {
+        $this->filePath = $params->get('kernel.project_dir')."/".self::JSON_PATH;
         $this->service = $service;
     }
 
@@ -28,7 +34,7 @@ class ServerController
      */
     public function getServers(Request $request): JsonResponse
     {
-        $serversArr = $this->service->getServers($request);
+        $serversArr = $this->service->getServers($this->filePath, $request);
         return new JsonResponse($serversArr);
     }
 }
