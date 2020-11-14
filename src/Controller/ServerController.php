@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Service\ServerServiceInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Service\ServerService;
 
 /**
  * Class ServerController
@@ -21,7 +21,7 @@ class ServerController
     private $service;
     private $filePath;
 
-    public function __construct(ParameterBagInterface $params, ServerService $service)
+    public function __construct(ParameterBagInterface $params, ServerServiceInterface $service)
     {
         $this->filePath = $params->get('kernel.project_dir')."/".self::JSON_PATH;
         $this->service = $service;

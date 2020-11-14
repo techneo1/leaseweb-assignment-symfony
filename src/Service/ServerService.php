@@ -8,7 +8,7 @@ use App\Entity\Price;
 use App\Entity\Ram;
 use Symfony\Component\HttpFoundation\Request;
 
-class ServerService
+class ServerService implements ServerServiceInterface
 {
     public function getServers(string $filePath, Request $request): array
     {
