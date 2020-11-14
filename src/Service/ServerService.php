@@ -45,9 +45,9 @@ class ServerService
     private function getDetailedServersArr(array $servers, Request $request): array
     {
         foreach ($servers as $key => $server) {
-            $servers[$key]['ram'] = $this->getObjFromEntity(new Ram($server['ram']));
-            $servers[$key]['hdd'] = $this->getObjFromEntity(new Hdd($server['hdd']));
-            $servers[$key]['price'] = $this->getObjFromEntity(new Price($server['price']));
+            $servers[$key]['ram'] = $this->getDynamicObjFromEntityWithPrivateProps(new Ram($server['ram']));
+            $servers[$key]['hdd'] = $this->getDynamicObjFromEntityWithPrivateProps(new Hdd($server['hdd']));
+            $servers[$key]['price'] = $this->getDynamicObjFromEntityWithPrivateProps(new Price($server['price']));
         }
 
         if (parse_url($request->getUri(), PHP_URL_QUERY))
@@ -62,7 +62,7 @@ class ServerService
      * @param $entity
      * @return stdClass
      */
-    private function getObjFromEntity($entity): \stdClass
+    private function getDynamicObjFromEntityWithPrivateProps($entity): \stdClass
     {
         return json_decode(json_encode($entity));
     }
