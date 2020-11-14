@@ -1,0 +1,51 @@
+<?php
+namespace App\Entity;
+
+
+use JsonSerializable;
+
+class Ram implements JsonSerializable
+{
+    /**
+     * @var int
+     *
+     */
+    protected $memory;
+
+    /**
+     * @var string
+     *
+     */
+    protected $unit;
+
+    /**
+     * @var string
+     *
+     */
+    protected $type;
+
+    public function __construct(string $ramText)
+    {
+        $this->setRam($ramText);
+
+    }
+
+    public function jsonSerialize(): array
+    {
+        return
+            [
+                'memory' => $this->memory,
+                'unit' => $this->unit,
+                'type' => $this->type
+            ];
+    }
+
+    private function setRam($ramText): void
+    {
+        $ramArr = preg_split('/[GB]/', $ramText);
+
+        $this->memory = (int) $ramArr[0];
+        $this->unit = 'GB';
+        $this->type = $ramArr[2];
+    }
+}
