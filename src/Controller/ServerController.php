@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Service\ServerService;
 
 /**
  * Class ServerController
@@ -12,12 +14,20 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class ServerController
 {
+    private $service;
+    public function __construct(ServerService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
+     * @param Request $request
      * @return JsonResponse
-     * @Route("/test", name="test", methods={"GET"})
+     * @Route("/servers", name="servers", methods={"GET"})
      */
-    public function indexAction(): JsonResponse   {
-        $id = random_int(0, 100);
-        return new JsonResponse(['server_id' => $id]);
+    public function getServers(Request $request): JsonResponse
+    {
+        $serversArr = $this->service->getServers($request);
+        return new JsonResponse($serversArr);
     }
 }
