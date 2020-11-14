@@ -1,6 +1,7 @@
 <?php
-namespace App\Entity;
+declare(strict_types=1);
 
+namespace App\Entity;
 
 use JsonSerializable;
 
