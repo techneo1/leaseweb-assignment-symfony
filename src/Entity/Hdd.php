@@ -11,25 +11,25 @@ class Hdd implements JsonSerializable
      * @var int
      *
      */
-    protected $memory;
+    private $memory;
 
     /**
      * @var int
      *
      */
-    protected $count;
+    private $count;
 
     /**
      * @var string
      *
      */
-    protected $unit;
+    private $unit;
 
     /**
      * @var string
      *
      */
-    protected $type;
+    private $type;
 
     public function __construct(string $hddText)
     {

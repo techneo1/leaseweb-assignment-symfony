@@ -12,19 +12,19 @@ class Price implements JsonSerializable
      * @var string
      *
      */
-    protected $currency;
+    private $currency;
 
     /**
      * @var string
      *
      */
-    protected $currencySymbol;
+    private $currencySymbol;
 
     /**
      * @var int
      *
      */
-    protected $amountCents;
+    private $amountCents;
 
     public function __construct(string $priceText)
     {

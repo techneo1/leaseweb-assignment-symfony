@@ -11,19 +11,19 @@ class Ram implements JsonSerializable
      * @var int
      *
      */
-    protected $memory;
+    private $memory;
 
     /**
      * @var string
      *
      */
-    protected $unit;
+    private $unit;
 
     /**
      * @var string
      *
      */
-    protected $type;
+    private $type;
 
     public function __construct(string $ramText)
     {
