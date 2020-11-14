@@ -20,7 +20,7 @@ class ServerService
         // Change keys of the associate array to lowercase
         $jsonArr['servers'] = $this->changeArrayKeysToLowerCase($jsonArr['servers']);
 
-        $jsonArr['servers'] = $this->getDetailedServersArr($jsonArr['servers']);
+        $jsonArr['servers'] = $this->getDetailedServersArr($jsonArr['servers'], $request);
 
         return $jsonArr;
     }
@@ -40,14 +40,20 @@ class ServerService
         return $arr;
     }
 
-    private function getDetailedServersArr(array $servers): array
+    private function getDetailedServersArr(array $servers, Request $request): array
     {
         foreach ($servers as $key => $server) {
             $servers[$key]['ram'] = $this->getObjFromEntity(new Ram($server['ram']));
             $servers[$key]['hdd'] = $this->getObjFromEntity(new Hdd($server['hdd']));
             $servers[$key]['price'] = $this->getObjFromEntity(new Price($server['price']));
         }
-        return $servers;
+
+        if (parse_url($request->getUri(), PHP_URL_QUERY))
+        {
+            return $this->getFilteredJsonArr($servers, $request);
+        } else {
+            return $servers;
+        }
     }
 
     /**
@@ -57,5 +63,32 @@ class ServerService
     private function getObjFromEntity($entity): \stdClass
     {
         return json_decode(json_encode($entity));
+    }
+
+    private function getFilteredJsonArr(array $servers, Request $request): array
+    {
+        $selectedRam = $request->query->get("ram");
+        $selectedHdd = $request->query->get("hdd");
+        $selectedLocation = (!empty($request->query->get("location")))? urldecode($request->query->get("location")): null;
+
+        return array_values(array_filter($servers,
+            function ($server) use ($selectedRam, $selectedHdd, $selectedLocation) {
+                $flag = "";
+
+                if (!empty($selectedRam)) {
+                    $selectedRamArr = (explode(",",$selectedRam));
+                    $flag = in_array($server['ram']->memory, $selectedRamArr);
+                }
+
+                if ($selectedHdd && $flag !== false) {
+                    $flag = $selectedHdd == $server['hdd']->type;
+                }
+
+                if ($selectedLocation && $flag !== false) {
+                    $flag = strpos($selectedLocation, $server['location']) !== false;
+                }
+
+                return $flag;
+            }));
     }
 }
