@@ -36,3 +36,10 @@ https://localhost:8000/api/servers
 ```
 https://localhost:8000/api/servers?ram=16&hdd=SATA2&location=San%20FranciscoSFO-12&storageMin=0&storageMax=7200
 ```
+
+## Tests
+
+##### Running functional tests
+```
+php bin/phpunit tests/ApplicationAvailabilityFunctionalTest.php
+```
