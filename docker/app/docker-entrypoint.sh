@@ -7,19 +7,30 @@ if [ "${1#-}" != "$1" ]; then
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
-    PHP_INI_RECOMMENDED="$PHP_INI_DIR/php.ini-production"
-    PHP_FPM_CONF_DIR="/usr/local/etc/php-fpm.d"
+	PHP_INI_RECOMMENDED="$PHP_INI_DIR/php.ini-production"
+	if [ "$APP_ENV" != 'prod' ]; then
+		PHP_INI_RECOMMENDED="$PHP_INI_DIR/php.ini-development"
+	fi
+	ln -sf "$PHP_INI_RECOMMENDED" "$PHP_INI_DIR/php.ini"
 
-    if [ "$APP_ENV" != 'prod' ]; then
-        PHP_INI_RECOMMENDED="$PHP_INI_DIR/php.ini-development"
-    fi
+  mkdir -p var/cache var/log
 
-    ln -sf "$PHP_INI_RECOMMENDED" "$PHP_INI_DIR/php.ini"
-    /opt/bin/envsubst < /usr/local/etc/php-fpm.conf.template > "$PHP_FPM_CONF_DIR/x-lsw.conf"
+  # The first time volumes are mounted, the project needs to be recreated
+  if [ ! -f composer.json ]; then
+      composer create-project "symfony/skeleton $SYMFONY_VERSION" tmp --stability=$STABILITY --prefer-dist --no-progress --no-interaction
+      jq '.extra.symfony.docker=true' tmp/composer.json > tmp/composer.tmp.json
+      rm tmp/composer.json
+      mv tmp/composer.tmp.json tmp/composer.json
 
-	export APP_SECRET=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
-	# Permissions hack because setfacl does not work on Mac and Windows
-	mkdir -p var/cache var/logs var/sessions && chown -R www-data var
+      cp -Rp tmp/. .
+      rm -Rf tmp/
+  elif [ "$APP_ENV" != 'prod' ]; then
+      rm -f .env.local.php
+      composer install --prefer-dist --no-progress --no-suggest --no-interaction
+  fi
+
+	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
+	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 fi
 
 exec docker-php-entrypoint "$@"

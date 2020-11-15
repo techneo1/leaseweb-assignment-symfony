@@ -4,11 +4,15 @@ services:
   app:
     build:
       context: .
-      target: build_development
+      target: symfony_docker_php
     env_file:
       - .env
-    volumes:
-      - ./:/srv/app:rw,cached
+    restart: unless-stopped
+    healthcheck:
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
     ports:
       - 9000:9000
 
