@@ -12,7 +12,7 @@ class ServerService implements ServerServiceInterface
 {
     public function getServers(string $filePath, Request $request): array
     {
-        $jsonStrFromFile = file_get_contents($filePath);
+        $jsonStrFromFile = (string) file_get_contents($filePath);
 
         // Remove multiple UTF-8 BOM sequences
         $jsonArr = json_decode($this->removeUtf8Bom($jsonStrFromFile), true );
@@ -43,9 +43,9 @@ class ServerService implements ServerServiceInterface
     private function getDetailedServersArr(array $servers, Request $request): array
     {
         foreach ($servers as $key => $server) {
-            $servers[$key]['ram'] = $this->getDynamicObjFromEntityWithPrivateProps(new Ram($server['ram']));
-            $servers[$key]['hdd'] = $this->getDynamicObjFromEntityWithPrivateProps(new Hdd($server['hdd']));
-            $servers[$key]['price'] = $this->getDynamicObjFromEntityWithPrivateProps(new Price($server['price']));
+            $servers[$key]['ram'] = json_decode(json_encode(new Ram($server['ram'])));
+            $servers[$key]['hdd'] = json_decode(json_encode(new Hdd($server['hdd'])));
+            $servers[$key]['price'] = json_decode(json_encode(new Price($server['price'])));
         }
 
         if (parse_url($request->getUri(), PHP_URL_QUERY))
@@ -54,15 +54,6 @@ class ServerService implements ServerServiceInterface
         } else {
             return $servers;
         }
-    }
-
-    /**
-     * @param $entity
-     * @return stdClass
-     */
-    private function getDynamicObjFromEntityWithPrivateProps($entity): \stdClass
-    {
-        return json_decode(json_encode($entity));
     }
 
     private function getFilteredJsonArr(array $servers, Request $request): array

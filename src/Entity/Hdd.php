@@ -47,7 +47,7 @@ class Hdd implements JsonSerializable
             ];
     }
 
-    private function setHdd($hddText): void
+    private function setHdd(string $hddText): void
     {
         $unit = preg_match('/GB/i', $hddText)? "GB": "TB";
         $hddArr = explode($unit, $hddText);

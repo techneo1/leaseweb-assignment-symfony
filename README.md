@@ -49,3 +49,9 @@ https://localhost:8000/api/servers?ram=16&hdd=SATA2&location=San%20FranciscoSFO-
 ```
 php bin/phpunit tests/ApplicationAvailabilityFunctionalTest.php
 ```
+
+## Static code analysis
+```
+vendor/bin/phpstan analyse src --level 5
+```
+Note: level 5 is good enough for PHP 7.4. However, set it to MAX, when using PHP 8.

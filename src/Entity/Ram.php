@@ -28,7 +28,6 @@ class Ram implements JsonSerializable
     public function __construct(string $ramText)
     {
         $this->setRam($ramText);
-
     }
 
     public function jsonSerialize(): array
@@ -41,7 +40,7 @@ class Ram implements JsonSerializable
             ];
     }
 
-    private function setRam($ramText): void
+    private function setRam(string $ramText): void
     {
         $ramArr = preg_split('/[GB]/', $ramText);
 
