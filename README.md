@@ -1,6 +1,12 @@
 # Dockerized Symfony API backend
 A simple API backend using PHP symfony. 
 
+## Current approach
+Due to brevity, provided excel was converted to JSON using an online tool http://beautifytools.com. And, the same JSON is used for manipulation.
+
+However, the ideal way would be reading the excel file and extracting it to PHP array for manipulation using popular PHP libraries like https://github.com/PHPOffice/PhpSpreadsheet.
+
+
 ## Tools used
 * Ubuntu 18.04
 * PHP 7.4
