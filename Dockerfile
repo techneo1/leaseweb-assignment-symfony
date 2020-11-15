@@ -67,7 +67,6 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN set -eux; \
 	composer global require "symfony/flex" --prefer-dist --no-progress --classmap-authoritative; \
 	composer clear-cache
-ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/app
 

@@ -15,9 +15,10 @@ However, the ideal way would be reading the excel file and extracting it to PHP 
 * Excel to JSON convertor (http://beautifytools.com/excel-to-json-converter.php)
 
 ## Pre-requisites
-docker-compose
+* docker 
+* docker-compose
 
-## Installation
+## Getting started
 
 After cloning the repo, run the following command from the project root folder
 
@@ -43,14 +44,17 @@ https://localhost:8000/api/servers
 https://localhost:8000/api/servers?ram=16&hdd=SATA2&location=San%20FranciscoSFO-12&storageMin=0&storageMax=7200
 ```
 
-## Tests
-
-##### Running functional tests
+## Running commands in docker
+##### Starting a docker terminal
 ```
-php bin/phpunit tests/ApplicationAvailabilityFunctionalTest.php
+sudo docker exec -it leaseweb-assignment-symfony_app_1 /bin/sh
+```
+##### Running tests
+```
+vendor/bin/simple-phpunit tests
 ```
 
-## Static code analysis
+##### Running static code analysis
 ```
 vendor/bin/phpstan analyse src --level 5
 ```
