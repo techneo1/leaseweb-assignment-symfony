@@ -40,26 +40,38 @@ class Price implements JsonSerializable
             ];
     }
 
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function getCurrencySymbol(): string
+    {
+        return $this->currencySymbol;
+    }
+
+    public function getAmountCents(): int
+    {
+        return $this->amountCents;
+    }
+
     private function setPrice(string $priceText): void
     {
-        if(preg_match('/$/i', $priceText)){
-            if(preg_match('/S$/i', $priceText)) {
-                $currency = "SGD";
-                $currencySymbol = "S$";
-            } else {
-                $currency = "USD";
-                $currencySymbol = "$";
-            }
+        if(preg_match('/^\€/', $priceText)){
+            $this->currency = "EUR";
+            $this->currencySymbol = "€";
         } else {
-            $currency = "EUR";
-            $currencySymbol = "€";
+            if(preg_match('/^\$/', $priceText)) {
+                $this->currency = "USD";
+                $this->currencySymbol = "$";
+            } else {
+                $this->currency = "SGD";
+                $this->currencySymbol = "S$";
+            }
         }
 
         preg_match_all('!\d+!', $priceText, $matches);
         $amountCents = ($matches[0][0] + ($matches[0][1] / 100)) * 100;
-
-        $this->currency = $currency;
-        $this->currencySymbol = $currencySymbol;
-        $this->amountCents = $amountCents;
+        $this->amountCents = (int) $amountCents;
     }
 }

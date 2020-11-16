@@ -47,6 +47,26 @@ class Hdd implements JsonSerializable
             ];
     }
 
+    public function getCount(): int
+    {
+        return $this->count;
+    }
+
+    public function getMemory(): int
+    {
+        return $this->memory;
+    }
+
+    public function getUnit(): string
+    {
+        return $this->unit;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
     private function setHdd(string $hddText): void
     {
         $unit = preg_match('/GB/i', $hddText)? "GB": "TB";

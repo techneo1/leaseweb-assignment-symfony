@@ -40,6 +40,21 @@ class Ram implements JsonSerializable
             ];
     }
 
+    public function getMemory(): int
+    {
+        return $this->memory;
+    }
+
+    public function getUnit(): string
+    {
+        return $this->unit;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
     private function setRam(string $ramText): void
     {
         $ramArr = preg_split('/[GB]/', $ramText);
