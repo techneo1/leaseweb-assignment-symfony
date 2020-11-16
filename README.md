@@ -1,11 +1,12 @@
 # Dockerized Symfony API backend
 A simple API backend using PHP symfony. 
 
-## Current approach
-Due to brevity, provided excel was converted to JSON using an online tool http://beautifytools.com. And, the same JSON is used for manipulation.
+## Approach
+##### Current implementation
+Due to brevity, provided excel was converted to JSON using an online tool http://beautifytools.com. And, the same JSON is used for manipulation for the quick start.
 
-However, the ideal way would be reading the excel file and extracting it to PHP array for manipulation using popular PHP libraries like https://github.com/PHPOffice/PhpSpreadsheet.
-
+##### Improvements
+The ideal way would be to provide a screen to upload the provided excel file and extract the file content to PHP array for manipulation using popular PHP libraries like https://github.com/PHPOffice/PhpSpreadsheet.
 
 ## Tools used
 * Ubuntu 18.04
@@ -13,6 +14,8 @@ However, the ideal way would be reading the excel file and extracting it to PHP 
 * Symfony 4.4
 * Nginx 1.19.3 
 * Excel to JSON convertor (http://beautifytools.com/excel-to-json-converter.php)
+* Docker
+* Docker-compose
 
 ## Pre-requisites
 * docker 
@@ -58,4 +61,4 @@ vendor/bin/simple-phpunit tests
 ```
 vendor/bin/phpstan analyse src --level 5
 ```
-Note: level 5 is good enough for Symfony 4.4. However, set it to "MAX" for Symfony 5, which uses typed props feature of PHP 7.4.
+Note: level 5 is good enough for Symfony 4.4. However, set it to "MAX" for Symfony 5, which implements typed props feature of PHP 7.4.
