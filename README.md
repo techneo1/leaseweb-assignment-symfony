@@ -25,12 +25,16 @@ The ideal way would be to provide a screen to upload the provided excel file and
 
 After cloning the repo, run the following command from the project root folder
 
-##### Building and bringing up the application
+##### Build and run app for development
 ```
 docker-compose up
 ```
+##### Build and run app for production
+```
+docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml up -d
+```
 
-##### Stopping the application 
+##### Stop the app 
 ```
 docker-compose down
 ```
