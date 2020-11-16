@@ -58,4 +58,4 @@ vendor/bin/simple-phpunit tests
 ```
 vendor/bin/phpstan analyse src --level 5
 ```
-Note: level 5 is good enough for PHP 7.4. However, set it to MAX, when using PHP 8.
+Note: level 5 is good enough for Symfony 4.4. However, set it to "MAX" for Symfony 5, which uses typed props feature of PHP 7.4.
