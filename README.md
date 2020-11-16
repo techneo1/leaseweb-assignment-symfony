@@ -58,6 +58,7 @@ sudo docker exec -it leaseweb-assignment-symfony_app_1 /bin/sh
 ```
 ##### Running tests
 ```
+./setup-phpunit.sh              # Run this for the first time
 vendor/bin/simple-phpunit tests
 ```
 

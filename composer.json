@@ -14,9 +14,7 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12.55",
-        "symfony/browser-kit": "4.4.*",
-        "symfony/phpunit-bridge": "4.4.*"
+        "phpstan/phpstan": "^0.12.55"
     },
     "config": {
         "preferred-install": {
