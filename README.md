@@ -3,17 +3,17 @@ A simple API backend using PHP symfony.
 
 ## Approach
 ##### Current implementation
-Due to brevity, provided excel was converted to JSON using an online tool http://beautifytools.com. And, the same JSON is used for manipulation for the quick start.
+Due to brevity, provided excel was converted to JSON using an online tool http://beautifytools.com. And, the same JSON is used for manipulation just to quick start.
 
 ##### Improvements
-The ideal way would be to provide a screen to upload the provided excel file and extract the file content to PHP array for manipulation using popular PHP libraries like https://github.com/PHPOffice/PhpSpreadsheet.
+The ideal way would be to provide a screen to upload the excel file and extract the file content to PHP array for manipulation using popular PHP libraries like [PHPOffice/PhpSpreadsheet](https://github.com/PHPOffice/PhpSpreadsheet).
 
 ## Tools used
 * Ubuntu 18.04
 * PHP 7.4
 * Symfony 4.4
 * Nginx 1.19.3 
-* Excel to JSON convertor (http://beautifytools.com/excel-to-json-converter.php)
+* Excel to JSON convertor from [beautifytools.com](http://beautifytools.com/excel-to-json-converter.php)
 * Docker
 * Docker-compose
 
@@ -42,14 +42,11 @@ docker-compose down
 ## APIs
 
 ##### Get all the servers
-```
-https://localhost:8000/api/servers
-```
+[http://localhost/api/servers](http://localhost/api/servers)
 
 ##### Get filtered servers based upon user selection
-```
-https://localhost:8000/api/servers?ram=16&hdd=SATA2&location=San%20FranciscoSFO-12&storageMin=0&storageMax=7200
-```
+[http://localhost/api/servers?ram=16&hdd=SATA2&location=San%20FranciscoSFO-12&storageMin=0&storageMax=7200](http://localhost/api/servers?ram=16&hdd=SATA2&location=San%20FranciscoSFO-12&storageMin=0&storageMax=7200)
+
 
 ## Running commands in docker
 ##### Starting a docker terminal
@@ -58,7 +55,8 @@ sudo docker exec -it leaseweb-assignment-symfony_app_1 /bin/sh
 ```
 ##### Running tests
 ```
-./setup-phpunit.sh              # Run this for the first time
+./setup-phpunit.sh  # Run this for the first time
+
 vendor/bin/simple-phpunit tests
 ```
 
